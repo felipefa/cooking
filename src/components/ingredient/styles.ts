@@ -13,6 +13,17 @@ export const styles = StyleSheet.create({
     height: 42,
     paddingHorizontal: 16,
   },
-  image: {},
-  title: {},
+  containerSelected: {
+    backgroundColor: theme.colors.green_100,
+    borderWidth: 2,
+    borderColor: theme.colors.green_600,
+  },
+  image: {
+    height: 16,
+    width: 16,
+  },
+  title: {
+    fontFamily: theme.fonts.family.medium,
+    fontSize: theme.fonts.size.body.sm,
+  },
 });
