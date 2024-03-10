@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { Alert, ScrollView } from 'react-native';
 
@@ -26,6 +27,10 @@ export function Ingredients() {
         },
       ]
     );
+  }
+
+  function handleSearchRecipes() {
+    router.push('/recipes/');
   }
 
   function handleToggleIngredient(ingredient: string) {
@@ -57,7 +62,7 @@ export function Ingredients() {
       {selectedIngredients.length > 0 ? (
         <IngredientsSelectedModal
           onClear={handleClearSelectedIngredients}
-          onSearch={() => {}}
+          onSearch={handleSearchRecipes}
           quantity={selectedIngredients.length}
         />
       ) : null}
