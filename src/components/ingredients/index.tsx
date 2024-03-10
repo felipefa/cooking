@@ -4,10 +4,14 @@ import { Alert, ScrollView } from 'react-native';
 
 import { Ingredient } from '@/components/ingredient';
 import { IngredientsSelectedModal } from '@/components/ingredientsSelectedModal';
+import { services } from '@/services';
 
 import { styles } from './styles';
 
 export function Ingredients() {
+  const [ingredients, setIngredients] = React.useState<
+    Ingredient[] | undefined
+  >();
   const [selectedIngredients, setSelectedIngredients] = React.useState<
     string[]
   >([]);
@@ -41,6 +45,16 @@ export function Ingredients() {
     );
   }
 
+  React.useEffect(() => {
+    async function getIngredients() {
+      const ingredients = await services.ingredients.findAll();
+
+      setIngredients(ingredients);
+    }
+
+    getIngredients();
+  }, []);
+
   return (
     <>
       <ScrollView
@@ -48,13 +62,13 @@ export function Ingredients() {
         fadingEdgeLength={20}
         showsVerticalScrollIndicator={false}
       >
-        {Array.from({ length: 100 }).map((_, index) => (
+        {ingredients?.map((ingredient) => (
           <Ingredient
-            key={index}
-            name="Apple"
-            image={require('@/assets/apple.png')}
-            isSelected={selectedIngredients.includes(String(index))}
-            onPress={() => handleToggleIngredient(String(index))}
+            key={ingredient.id}
+            name={ingredient.name}
+            image={services.storage.getImagePath(ingredient.image)}
+            isSelected={selectedIngredients.includes(ingredient.id)}
+            onPress={() => handleToggleIngredient(ingredient.id)}
           />
         ))}
       </ScrollView>

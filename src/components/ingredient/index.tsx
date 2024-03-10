@@ -1,16 +1,10 @@
-import {
-  Image,
-  ImageProps,
-  Pressable,
-  PressableProps,
-  Text,
-} from 'react-native';
+import { Image, Pressable, PressableProps, Text } from 'react-native';
 
 import { styles } from './styles';
 
 interface IngredientProps extends PressableProps {
   name: string;
-  image: ImageProps['source'];
+  image: string;
   isSelected?: boolean;
 }
 
@@ -20,12 +14,16 @@ export function Ingredient({
   isSelected = false,
   ...pressableProps
 }: IngredientProps) {
+  const imageSource = {
+    uri: image,
+  };
+
   return (
     <Pressable
       style={[styles.container, isSelected && styles.containerSelected]}
       {...pressableProps}
     >
-      <Image source={image} style={styles.image} />
+      <Image source={imageSource} style={styles.image} />
       <Text style={styles.title}>{name}</Text>
     </Pressable>
   );
