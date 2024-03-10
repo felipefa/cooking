@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import Animated, { BounceOutDown, SlideInDown } from 'react-native-reanimated';
 
+import { Button } from '@/components/button';
 import { theme } from '@/theme';
 
 import { styles } from './styles';
@@ -34,6 +35,8 @@ export function IngredientsSelectedModal({
           size={24}
         />
       </View>
+
+      <Button label="Search recipes" onPress={onSearch} />
     </Animated.View>
   );
 }
