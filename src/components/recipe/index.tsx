@@ -9,17 +9,17 @@ import {
 import { styles } from './styles';
 
 interface RecipeProps extends TouchableOpacityProps {
-  recipe: {
-    name: string;
-    image: string;
-    minutes: number;
-  };
+  recipe: Recipe;
 }
 
-export function Recipe({ recipe, ...rest }: RecipeProps) {
+export function Recipe({ recipe, ...props }: RecipeProps) {
+  const imageSource = {
+    uri: recipe.image,
+  };
+
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8} {...rest}>
-      <ImageBackground source={{ uri: recipe.image }} style={styles.image}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.8} {...props}>
+      <ImageBackground source={imageSource} style={styles.image}>
         <LinearGradient
           colors={['rgba(0, 0, 0, 0.15)', 'rgba(0, 0, 0, 0.9)']}
           style={styles.linear}

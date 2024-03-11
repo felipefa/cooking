@@ -14,6 +14,7 @@ export default function Recipes() {
   const ingredientIds = params.ingredientIds?.split(',');
 
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
+  const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
   function goBackToPreviousScreen() {
     router.back();
@@ -21,7 +22,11 @@ export default function Recipes() {
 
   React.useEffect(() => {
     services.ingredients.findByIds(ingredientIds).then(setIngredients);
-  }, []);
+  }, [ingredientIds]);
+
+  React.useEffect(() => {
+    services.recipes.findByIngredientsIds(ingredientIds).then(setRecipes);
+  }, [ingredientIds]);
 
   return (
     <View style={styles.container}>
@@ -43,18 +48,14 @@ export default function Recipes() {
       />
 
       <FlatList
-        data={['1']}
-        keyExtractor={(item) => item}
-        renderItem={() => (
-          <Recipe
-            recipe={{
-              name: 'Pasta',
-              image:
-                'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/658A0A74-039A-487C-A07A-CAAF61B4615D/Derivates/A230DF28-60DF-429D-ABDA-96ED64E9EE10.jpg',
-              minutes: 30,
-            }}
-          />
-        )}
+        columnWrapperStyle={{ gap: 16 }}
+        contentContainerStyle={styles.recipeListContentContainer}
+        data={recipes}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        renderItem={({ item: recipe }) => <Recipe recipe={recipe} />}
+        showsVerticalScrollIndicator={false}
+        style={styles.recipeList}
       />
     </View>
   );

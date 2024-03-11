@@ -25,4 +25,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     minWidth: '100%',
   },
+  recipeList: {
+    padding: 16,
+  },
+  recipeListContentContainer: {
+    gap: 16,
+  },
 });
