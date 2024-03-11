@@ -4,6 +4,7 @@ import { Alert, Text, View } from 'react-native';
 
 import { Ingredients } from '@/components/ingredients';
 import { IngredientsSelectedModal } from '@/components/ingredientsSelectedModal';
+import { Loading } from '@/components/loading';
 import { services } from '@/services';
 
 import { styles } from './styles';
@@ -60,12 +61,16 @@ export default function Index() {
         Find recipes based on the {'\n'}ingredients you choose
       </Text>
 
-      <Ingredients
-        contentContainerStyle={styles.ingredientListContentContainer}
-        ingredients={ingredients}
-        onToggleIngredient={handleToggleIngredient}
-        selectedIngredients={selectedIngredients}
-      />
+      {ingredients ? (
+        <Ingredients
+          contentContainerStyle={styles.ingredientListContentContainer}
+          ingredients={ingredients}
+          onToggleIngredient={handleToggleIngredient}
+          selectedIngredients={selectedIngredients}
+        />
+      ) : (
+        <Loading />
+      )}
 
       {selectedIngredients.length > 0 ? (
         <IngredientsSelectedModal

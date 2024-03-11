@@ -16,26 +16,18 @@ export default function Recipes() {
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
-  function goBackToPreviousScreen() {
-    router.back();
-  }
-
   React.useEffect(() => {
     services.ingredients.findByIds(ingredientIds).then(setIngredients);
-  }, [ingredientIds]);
+  }, []);
 
   React.useEffect(() => {
     services.recipes.findByIngredientsIds(ingredientIds).then(setRecipes);
-  }, [ingredientIds]);
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <MaterialIcons
-          name="arrow-back"
-          onPress={goBackToPreviousScreen}
-          size={32}
-        />
+        <MaterialIcons name="arrow-back" onPress={router.back} size={32} />
 
         <Text style={styles.title}>Recipes</Text>
       </View>
@@ -53,7 +45,12 @@ export default function Recipes() {
         data={recipes}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        renderItem={({ item: recipe }) => <Recipe recipe={recipe} />}
+        renderItem={({ item: recipe }) => (
+          <Recipe
+            recipe={recipe}
+            onPress={() => router.navigate('/recipe/' + recipe.id)}
+          />
+        )}
         showsVerticalScrollIndicator={false}
         style={styles.recipeList}
       />

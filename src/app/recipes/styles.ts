@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
   },
   ingredientListContentContainer: {
     gap: 6,
-    paddingHorizontal: 12,
     minWidth: '100%',
+    paddingHorizontal: 12,
   },
   recipeList: {
     padding: 16,

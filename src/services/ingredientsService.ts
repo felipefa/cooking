@@ -37,9 +37,9 @@ export async function findByRecipeId(recipeId: string) {
       .from('recipes_ingredients')
       .select('ingredients (id, name, image)')
       .eq('recipe_id', recipeId)
-      .returns<Ingredient[]>();
+      .returns<{ ingredients: Ingredient; }[]>();
 
-    return data ?? [];
+    return data ? data.map((item) => item.ingredients) : [];
   } catch (error) {
     console.error('Error fetching ingredients by recipe id', error);
     return [];
