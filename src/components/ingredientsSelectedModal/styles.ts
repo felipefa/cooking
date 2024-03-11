@@ -8,12 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.black,
     borderRadius: theme.borderRadius.lg,
     bottom: 24,
-    left: 24,
     opacity: 0.85,
     padding: 16,
     position: 'absolute',
-    right: 24,
-    width: '100%',
+    width: '90%',
   },
   header: {
     alignItems: 'center',
