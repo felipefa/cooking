@@ -1,4 +1,5 @@
 import { Slot } from 'expo-router';
+import Head from 'expo-router/head';
 
 import {
   useFonts,
@@ -18,5 +19,12 @@ export default function Layout() {
     return null;
   }
 
-  return fontsLoaded ? <Slot /> : null;
+  return fontsLoaded ? (
+    <>
+      <Head>
+        <title>Cooking</title>
+      </Head>
+      <Slot />
+    </>
+  ) : null;
 }
