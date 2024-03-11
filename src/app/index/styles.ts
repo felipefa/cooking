@@ -23,5 +23,11 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 38,
     marginTop: 12,
+  },
+  ingredientListContentContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingBottom: 150,
+    gap: 6,
   }
 });

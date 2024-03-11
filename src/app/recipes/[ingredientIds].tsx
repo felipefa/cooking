@@ -1,15 +1,27 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
+import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 
+import { Ingredients } from '@/components/ingredients';
 import { Recipe } from '@/components/recipe';
+import { services } from '@/services';
 
 import { styles } from './styles';
 
 export default function Recipes() {
+  const params = useLocalSearchParams<{ ingredientIds: string }>();
+  const ingredientIds = params.ingredientIds?.split(',');
+
+  const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
+
   function goBackToPreviousScreen() {
     router.back();
   }
+
+  React.useEffect(() => {
+    services.ingredients.findByIds(ingredientIds).then(setIngredients);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -22,6 +34,13 @@ export default function Recipes() {
 
         <Text style={styles.title}>Recipes</Text>
       </View>
+
+      <Ingredients
+        contentContainerStyle={styles.ingredientListContentContainer}
+        horizontal
+        ingredients={ingredients}
+        style={styles.ingredientList}
+      />
 
       <FlatList
         data={['1']}
